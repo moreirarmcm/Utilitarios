@@ -9,21 +9,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class Util {
-	static SimpleDateFormat data_formato = new SimpleDateFormat("dd/MM/yyyy");
+	static SimpleDateFormat data_simples = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	static NumberFormat dinheiro_formato = new DecimalFormat("R$ #,##0.00", new DecimalFormatSymbols(new Locale("pt", "BR")) ); 
 	static DateTimeFormatter data_formato_localDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	
+
 	public static String DateParaString(Date d) {
-		return Util.data_formato.format(d);
-	}
-	public static Date StringParaDate(String s) {
-		try {
-			return data_formato.parse(s);
-		} catch (ParseException e) {
-			return null;
-		}
+		return Util.data_simples.format(d);
 	}
 	
 	public static String doubleParaDinheiro (Double d) {
@@ -37,7 +31,16 @@ public class Util {
 			return null;
 		}
 	}
+	
 	public static String LocalDateParaString(LocalDate d) {
 		return d.format(data_formato_localDate);
 	}
+	
+	public static void Pausar(int segundos) {
+		try {
+			TimeUnit.SECONDS.sleep(segundos);
+		}catch (InterruptedException e) {
+			System.out.println("Não foi possível pausar por " + segundos);
+		}
+	}	
 }
